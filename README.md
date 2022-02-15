@@ -1,2 +1,2 @@
 # javaStudy
-java language study
+java study files repository.
