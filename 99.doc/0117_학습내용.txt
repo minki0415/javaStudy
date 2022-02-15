@@ -1,0 +1,48 @@
+[학습내용]
+
+Review
+
+1. 변수 / 생성자 / 메소드 / static{}
+2. access modifier : private / default / protected / public
+	- class에 선언 가능한 것 : default / public
+	- 변수 / 생성자 / 메소드에 선언 가능 : private / default / protected / public
+	singleton design pattern
+		변수, 생성자 : private
+		메소드 : public
+		
+3. tool
+	eclipse : 자바 IDE
+	maven : pom.xml, 프로젝트 생성 후에 maven
+	cmd : win + R 
+	lombok : 코드 간소화, 애노테이션 기반 생성자/getter/setter/toString/builder pattern
+	
+4. API & library & framework
+	lombok
+	junit (framework) : @Test
+	log4j (framework) : log4j.properties
+		- properties 파일형식 
+		- key=value
+		
+5. pattern 
+	1) DTO(VO)
+	2) MVC 
+		Model/View/Controller
+		java script
+			react.js / vue.js / jquery
+	3) Singleton
+	
+
+0117 학습내용
+
+StrartView -> TalentDonationProjectController(정상응답과 비정상 응답 처리, 정상 ->엔드뷰, 비정상 -> 페일뷰) -> TalentDonationProjectService
+-> DTO & ArrayList -> TalentDonationProjectControlle -> EndView
+
+최종 실무구조
+	DB와 직접 소통하는 클래스
+	controller와 db와 소통하는 클래스 사이에 다양한 추가 비즈니스 로직에 맞게 개발 
+
+미니프로젝트- 소회의실9(반철준, 김민기, 홍도희, 임혜진
+1/17 - 코드리뷰, 주제선정, 5시 45분까지
+1/18 - 3시부터 코드리뷰 및 개선, 발표
+
+
