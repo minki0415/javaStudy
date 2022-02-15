@@ -1,0 +1,38 @@
+1월 6일 (목)
+ 
+ 1. project 명 : step05_app
+ 2. 주제 및 로직 
+ 	- 자유
+ 3. 제약조건
+ 	1) MVC + DTO pattern 필수
+ 	2) builder pattern 옵션
+ 	3) lombok 사용 필수
+ 	4) 배열 사용 필수
+ 	5) 반복 사용 필수
+ 	
+ ================================
+ 
+ 주제 : 학생들의 정보 불러오기 
+ 
+1.  MVC pattern
+		- Model : 핵심기능, business(biz), core
+		- View : 화면 담당 기능
+		- Controller : 요청 받고 해당 요청별 실제 biz 로직 실행, view 지정
+		
+2. 프로젝트 구조
+	- model
+		- DTO        : 변수 선언, getXxx(), SetXxx() 메소드 생성 
+		- Model      : 정보 반환하는 메소드 생성
+		
+	- view
+		- Startview  : main 함수, 결과 출력
+		- Endview    : 정보 출력하는 메소드 생성
+		
+	- controller
+		- Controller : Endview로 요청 전달 
+		
+		
+		
+		
+		
+		
