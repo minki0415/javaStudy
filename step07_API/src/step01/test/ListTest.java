@@ -1,0 +1,170 @@
+/* list 자료구조 API
+ * 1. 배열과 흡사
+ * 2. index로 관리
+ * 3. 배열과의 차이점
+ * 		- class로 기능이 제공
+ * 		- 데이터들을 메소드로 활용
+ * 		- 배열은 한 번 생성된 크기가 변경 불가
+ * 		- list는 동적으로 메모리 크기 변경
+ * 4. 특징
+ * 		- 객체 타입들만 저장가능
+ * 		- 가령 3이라는 숫자 값만 저장하고 싶은 경우 해결책
+ * 		- 기본값들을 객체처럼 표현 가능하게 해주는 8가지 도우미 클래스들 존재
+ * 		- int : Integer(클래스, 참조타입) / byte : Byte(클래스, 참조타입) 등
+ * 		-  wrapper class들 존재(8가지)
+ * 			- 기본 타입을 객체처럼 사용 가능하게 support해주는 클래스
+ * 
+ * 5. 주요 API
+ * 		1) 저장/활용(반환)/삭제
+ * 			- add(Object)/get(int)/remove(int)
+ * 		2) 저장된 데이터 개수 확인
+ * 			- size()
+ * 
+ * 6. 다른 관점에서의 list
+ * 		- 속도
+ * 			데이터 증가시 메모리 증가, 데이터 삭제 시 삭제된 이후의 데이터 re index
+ * 			-> 실행속도 측면에서는 배열보다 더디다.
+ * 
+ * 		- 다수의 데이터들을 실시간 저장 삭제시에는 배열보다 권장
+ * 			-> 삭제하는 데이터가 배열 중간에 포함되어 있다면 비추천
+ * 			-> 삭제하는 데이터들이 마지막 부분에 저장되어 있다면 권장
+ */
+
+package step01.test;
+import java.util .ArrayList;
+
+import model.domain.CustomerDTO;
+
+public class ListTest {
+	
+	//정통 문법 - 객체 타입인 경우 무조건 모두다 저장
+	public static void m() {
+		//데이터 저장 가능한 메모리 생성
+		ArrayList al = new ArrayList(); // 10개의 메모리 공간을 보유한 객체 생성
+		
+		//데이터를 2개 저장 - Strign, Integer 타입은 서로 연관성 없음, 단 Object 타입
+		//public boolean add(Object o){parameter로 유입된 데이터를 Array List에 저장)
+		al.add("문자열"); // 0번째로 저장
+		al.add(new Integer(3)); //al.add(3); -> 컴파일 시 al.add(new Integer(3) 으로 자동 변경
+		al.add("문자열2");
+		al.add(new Integer(3));
+		
+		//저장된 데이터 개수 확인 - 메모리 개수 확인 아님 
+		System.out.println(al.size());
+		
+		//모든 데이터 단순 출력
+		System.out.println(al);
+		
+		//index 2번재의 문자열2 삭제후 size 호출()
+		al.remove(2);
+		System.out.println(al);
+		System.out.println(al.size());
+		
+	}
+	
+	//저장(add) 활용(get)
+	/* public boolean add(Object o){}
+	 * public Object remove(int index){}
+	 * public ? get(?){해당 index의 저장되어 있는 데이터 반환}
+	 * -> public Object get(int index){}
+	 */
+	public static void m2() {
+		ArrayList al = new ArrayList(); //ArrayList() -> 메모리 개수 default 값은 10개
+		al.add("1");
+		al.add("2");
+		al.add("3");
+		al.add("4");
+		System.out.println(al.get(2));
+		al.remove(2); //해당 index 삭제하면ㅅ서 뒤에 저장되어 있던 데이터들 index 재정렬
+		System.out.println(al.get(2));
+	}
+	
+	public static void m3() {
+		//초기 생성되는 메모리 개수 + 증가치 메모리 개수
+		ArrayList al = new ArrayList(5); //5개의 메모리 생성 의미 / () 10개의 메모리 생성 의미 / 동적 메모리 
+		al.add("1");
+		al.add("2");
+		al.add("3");
+		al.add("4");
+		al.add("5");
+		System.out.println(al.size());  //5  
+		
+		//5개 이상의 메모리를 필요로 할 경우 6번째 데이터 저장시 메모리를 '5개씩' 증가
+		al.add("6");
+		System.out.println(al.size());  //6
+		al.add("7");
+		al.add("8");
+		System.out.println(al.size());  //8
+	}
+	
+	
+	//타입을 제한할 수 있는 jdk1.5부터 제시된 제네릭 문법
+	//향후 개발시에는 자료구조 API러 데이터 관리시에 대부분 동일한 데이터 관리 
+	//타입 제한 기술인 제네릭 사용시의 장점
+	//-> 타입이 명확해지고, 형변환 없이 API들 사용 가능 
+	public static void m4() {
+		//String만 저장 가능한 동적 배열 구조 생성
+		//String[] 타입으로 간주 단, 메모리 크기제한 없음
+		ArrayList<String> al = new ArrayList<String>();
+		al.add("1");
+		al.add("2");
+		al.add("3");
+		String s = al.get(0);
+		System.out.println(s.charAt(0));
+	}
+	
+	//고객의 모든 정보를 관리자 화면에 출력하기 위해
+	//DB로 부터 select -> CustomerDTO 객체 생성 -> ArrayList에 저장 -> 반환
+	public static ArrayList<CustomerDTO> getCustomers(){
+		
+		ArrayList<CustomerDTO> all = new ArrayList<CustomerDTO>();
+		
+		all.add(new CustomerDTO("u1", 11)); //0번째 저장
+		all.add(new CustomerDTO("u2", 22)); //1번째 저장
+		
+		return all;
+	}
+	
+	public static ArrayList nonGetCustomers(){
+		
+		ArrayList all = new ArrayList();//10개 메모리 생성
+		
+		all.add(new CustomerDTO("u1", 11));  //0번째 저장
+		all.add(new CustomerDTO("u2", 22));  //1번째 저장
+		
+		return all;
+	}
+
+	
+	public static void main(String[] args) {
+		
+		System.out.println("*** non-제네릭 ***");
+		ArrayList a = nonGetCustomers();
+		/* a.get(1)
+		 * 	a - ArrayList
+		 * 	a.get(1) - Object
+		 *  a.get(1).getId() - 에러 왜 Object 클래스에는 getId() 메소드 미 보유 에러
+		 *  해결책 
+		 */
+		
+		System.out.println( ( (CustomerDTO)a.get(1) )  .getId() ); //u2
+		
+		
+		System.out.println("*** 제네릭 사용 ***");
+		ArrayList<CustomerDTO> all = getCustomers();
+		//? u2만 출력해주세요
+		/* all.get(1)
+		 * 	all.get(1)
+		 * 		all - ArrayList>CustomerDTO>
+		 * 		all.get(1) - CustomerDTO(id와 pw 두개의 데이터를 보유하고 있는 객체)
+		 * 		all.get(1).getId() - String
+		 *  
+		 */
+		
+		System.out.println(all.get(1).getId());
+		
+		//m4();
+	
+	}
+
+}
